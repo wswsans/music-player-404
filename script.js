@@ -1,5 +1,5 @@
 $(() => {
-	$("*").on("keydown", (event) => {
+	$("html").on("keydown", (event) => {
 		switch (event.code) {
 			case "Slash":
 				if (!(event.metaKey || event.ctrlKey)) return;
