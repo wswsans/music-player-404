@@ -97,6 +97,7 @@ $(() => {
 			console.log(i);
 			if ($("body").children().length <= 0) check = false;
 		} else {
+			console.log("404 Not Found")
 			$("html").html(`<head></head><body></body>`);
 			$("head").html(head);
 			$("body").html(body);
