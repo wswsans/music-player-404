@@ -4,8 +4,10 @@
 		<meta charset="utf-8">
 		<title>Music Player</title>
 		<link rel="stylesheet" href="./style.css">
-		<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-		<script type="text/javascript" src="./script.js"></script>
+		<script type="text/javascript" src="./extension/jquery-3.6.0.min.js"></script>
+		<script type="text/javascript" src="./extension/jsmediatags.min.js"></script>
+		<!-- <script type="text/javascript" src="./online.js"></script> -->
+		<script type="text/javascript" src="./scriptV1.js"></script>
 	</head>
 	<body>
 		<div id="shadow"></div>
@@ -65,6 +67,10 @@
 					<td>シャッフル / シャッフル解除</td>
 				</tr>
 				<tr>
+					<th>Shift + S</th>
+					<td>(シャッフルにチェックがついてる時のみ) シャッフルして次の曲</td>
+				</tr>
+				<tr>
 					<th>D</th>
 					<td>次の曲</td>
 				</tr>
@@ -74,7 +80,7 @@
 				</tr>
 				<tr>
 					<th>1..9</th>
-					<td>特定のポイントに移動(再生時間の 70% は <strong>7</strong> )</td>
+					<td>特定のポイントに移動(再生時間の 70% は <strong>7</strong>)</td>
 				</tr>
 				<tr>
 					<th>Shift + 1..9</th>
@@ -87,24 +93,37 @@
 			<button id="start">▷</button>
 		</section>
 		<section id="player">
-			<!-- <img id="thumbnail"> -->
 			<audio id="audio_player"></audio>
 			<button id="pause">| |</button>
-			<button id="back">«</button>
-			<button id="next">»</button>
-			<button id="time_back">←</button>
-			<button id="time_next">→</button>
+			<!-- 曲 -->
+			<button class="audio back">«</button>
+			<button class="audio next">»</button>
+			<!-- ループ -->
 			<input type="checkbox" id="loop">
 			<label for="loop">⥀</label>
+			<!-- シャッフル -->
 			<input type="checkbox" id="shuffle">
 			<label for="shuffle">⤮</label>
-			<input type="range" max="10" step="0.25" value="1" id="speed">
-			<button id="speed_back">←</button><span id="speed_show">1.0</span><button id="speed_next">→</button>
-			<input type="range" min="0" max="1" step="0.1" value="1" id="volume">
-			<button id="volume_back">←</button><span id="volume_show">1.0</span><button id="volume_next">→</button>
-			<button id="mute">X</button>
+			<button id="shuffle_btn">⤮→</button>
+			<!-- 速度 -->
+			<input class="speed range" value="1" type="range" max="16" min="0" step="0.25">
+			<button class="speed back similar_btn">←</button>
+			<input class="speed show similar_num" value="1.0" type="number" max="16" min="0" step="0.25">
+			<button class="speed next similar_btn">→</button>
+			<!-- 音量 -->
+			<input class="volume range" value="1" type="range" max="1" min="0" step="0.1">
+			<button class="volume back similar_btn">←</button>
+			<input class="volume show similar_num" value="1.0" type="number" max="1" min="0" step="0.1">
+			<button class="volume next similar_btn">→</button>
+			<button id="mute" vol="1.0">X</button>
 			<br>
-			<input type="range" min="0" step="0.1" value="0" id="seek"><span id="seek_show">0.0</span>
+			<!-- 時間 -->
+			<button class="time back similar_btn">←</button>
+			<input class="time show" value="5" type="number" min="0" step="0.1"><span>s</span>
+			<button class="time next similar_btn">→</button>
+			<!-- シークバー(再生時間) -->
+			<input class="seek range" value="0" type="range" min="0" step="0.1">
+			<input class="seek show" value="0.0" type="number" min="0" step="0.1"><span id="duration">/ 0.0</span>
 		</section>
 		<table id="lists">
 			<tr>
@@ -114,13 +133,8 @@
 					<span id="lyrics">Lyrics: <br></span>
 				</td>
 				<td valign="top">
-					<ol id="play_list">
-						<li>200</li>
-						<li>404</li>
-						<li>500</li>
-						<li>Not Found</li>
-						<li>Server Error</li>
-					</ol>
+					<span>Track: </span><input id="list_num" value="1" type="number" min="1" step="1"><br>
+					<ol id="play_list"></ol>
 				</td>
 			</tr>
 		</table>

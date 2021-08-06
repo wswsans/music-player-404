@@ -1,11 +1,12 @@
 /* 全体 */
-*:focus {
-	outline: none;
-}
 * {
 	font-size: 10px;
 }
-button, label, input, br {
+/* 消す */
+*:focus {
+	outline: none;
+}
+button, label, br {
   -webkit-touch-callout: none; /* iOS Safari */
 	-webkit-user-select: none; /* Safari */
 	 -khtml-user-select: none; /* Konqueror HTML */
@@ -14,10 +15,50 @@ button, label, input, br {
 			user-select: none; /* Non-prefixed version, currently
 								  supported by Chrome and Opera */
 }
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+input[type="number"] {
+    -moz-appearance:textfield;
+}
+/* カーソル */
+span {
+	cursor: default;
+}
+input[type="checkbox"], button, label {
+	cursor: pointer;
+}
+input[type="range"] {
+	cursor: ew-resize;
+	margin-left: 10px;
+}
+button#start {
+	cursor: not-allowed;
+}
+/* その他 */
+input[type="checkbox"] {
+	margin-right: 0;
+}
+input[type="number"] {
+	text-align: center;
+	background-color: #FFF;
+	border: none;
+	border-bottom: 1px solid #FFF;
+	width: 20px;
+	transform-origin: 0% 50%;
+	transition: 0.2s;
+}
+input[type="number"]:focus {
+	border-bottom: 1px solid #E5E5E5;
+}
 body {
 	margin: 0px;
 	padding: 0px;
+	padding-left: 10px;
 }
+
 /* プレイリスト  */
 ol#play_list{
 	display: inline-block;
@@ -27,17 +68,20 @@ ol#play_list li {
 	margin: 2px 0px;
 	padding: 5px;
 	cursor: pointer;
-	border: 1px dotted #000;
 }
 /* シークバー  */
-input#seek {
-	width:  410px;
+input.seek.range {
+	width: 440px;
+}
+/* トラック  */
+input#list_num {
+	width: 40px;
 }
 /* ファイル詳細 */
 img#album_art{
 	margin: 10px;
 	border: 1px solid #000;
-	padding: 150px;
+	height:  300px;
 }
 td#detail {
 	width: 330px;
