@@ -68,6 +68,7 @@ ol#play_list li {
 	margin: 2px 0px;
 	padding: 5px;
 	cursor: pointer;
+	border: 1px dotted #000;
 }
 /* シークバー  */
 input.seek.range {
@@ -81,7 +82,7 @@ input#list_num {
 img#album_art{
 	margin: 10px;
 	border: 1px solid #000;
-	height:  300px;
+	padding: 150px;
 }
 td#detail {
 	width: 330px;
