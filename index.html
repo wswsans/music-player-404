@@ -3,7 +3,13 @@
 	<head>
 		<meta charset="utf-8">
 		<title>Music Player</title>
-		<link rel="stylesheet" href="style.css">
+		<meta name="description" content="音楽プレイヤー">
+		<meta name="author" content="wswsans">
+		<meta name="theme-color" content="#525252">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta property="og:image" content="icon/512.jpg">
+		<link rel="shortcut icon" href="icon/32.jpg">
+		<link rel="stylesheet" href="./style.css">
 		<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 		<script type="text/javascript" src="script.js"></script>
 	</head>
@@ -21,40 +27,24 @@
 					<td>キーボードショートカットを 非表示</td>
 				</tr>
 				<tr>
-					<th>C / スペース(音楽プレイヤーが非表示の時のみ)</th>
+					<th>C</th>
 					<td>ファイルを選択</td>
 				</tr>
 				<tr>
-					<th>P / スペース</th>
-					<td>一時停止 / 再開</td>
+					<th>スペース</th>
+					<td>ファイル未選択: ファイルを選択する<br>ファイル選択済み: プレイヤーを起動する<br>再生中: 一時停止 / 再開</td>
 				</tr>
 				<tr>
-					<th>←</th>
-					<td>-5秒</td>
+					<th>R</th>
+					<td>再生時間以外を初期設定に戻す</td>
 				</tr>
 				<tr>
-					<th>→</th>
-					<td>+5秒</td>
+					<th>A</th>
+					<td>前の曲</td>
 				</tr>
 				<tr>
-					<th>↑</th>
-					<td>音量 +10%</td>
-				</tr>
-				<tr>
-					<th>↓</th>
-					<td>音量 -10%</td>
-				</tr>
-				<tr>
-					<th>M</th>
-					<td>ミュート / ミュート解除</td>
-				</tr>
-				<tr>
-					<th>></th>
-					<td>+0.25倍</td>
-				</tr>
-				<tr>
-					<th><</th>
-					<td>-0.25倍</td>
+					<th>D</th>
+					<td>次の曲</td>
 				</tr>
 				<tr>
 					<th>L</th>
@@ -69,12 +59,40 @@
 					<td>(シャッフルにチェックがついてる時のみ) シャッフルして次の曲</td>
 				</tr>
 				<tr>
-					<th>D</th>
-					<td>次の曲</td>
+					<th><</th>
+					<td>-0.25倍</td>
 				</tr>
 				<tr>
-					<th>A</th>
-					<td>前の曲</td>
+					<th>></th>
+					<td>+0.25倍</td>
+				</tr>
+				<tr>
+					<th>P</th>
+					<td>速度変更時 ピッチを変える / 変えない</td>
+				</tr>
+				<tr>
+					<th>↑</th>
+					<td>音量 +10%</td>
+				</tr>
+				<tr>
+					<th>↓</th>
+					<td>音量 -10%</td>
+				</tr>
+				<tr>
+					<th>M</th>
+					<td>ミュート / ミュート解除</td>
+				</tr>
+				<tr>
+					<th>←</th>
+					<td>-5秒</td>
+				</tr>
+				<tr>
+					<th>→</th>
+					<td>+5秒</td>
+				</tr>
+				<tr>
+					<th>I</th>
+					<td>アルバムアートとリップシンクを切り替える</td>
 				</tr>
 				<tr>
 					<th>1..9</th>
@@ -91,29 +109,28 @@
 			<button id="start">▷</button>
 		</section>
 		<section id="player">
-			<audio id="audio_player"></audio>
-			<button id="pause">| |</button>
+			<button id="reset">↩︎</button>
+			<button id="pause" class="on_off">| |</button>
 			<!-- 曲 -->
 			<button class="audio back">«</button>
 			<button class="audio next">»</button>
 			<!-- ループ -->
-			<input type="checkbox" id="loop">
-			<label for="loop">⥀</label>
+			<button id="loop" class="on_off">⟲</button>
 			<!-- シャッフル -->
-			<input type="checkbox" id="shuffle">
-			<label for="shuffle">⤮</label>
+			<button id="shuffle" class="on_off">⤮</button>
 			<button id="shuffle_btn">⤮→</button>
 			<!-- 速度 -->
 			<input class="speed range" value="1" type="range" max="16" min="0" step="0.25">
 			<button class="speed back similar_btn">←</button>
 			<input class="speed show similar_num" value="1.0" type="number" max="16" min="0" step="0.25">
 			<button class="speed next similar_btn">→</button>
+			<button id="pitch" class="on_off">♩↕︎</button>
 			<!-- 音量 -->
 			<input class="volume range" value="1" type="range" max="1" min="0" step="0.1">
 			<button class="volume back similar_btn">←</button>
 			<input class="volume show similar_num" value="1.0" type="number" max="1" min="0" step="0.1">
 			<button class="volume next similar_btn">→</button>
-			<button id="mute" vol="1.0">X</button>
+			<button id="mute" class="on_off on">)))</button>
 			<br>
 			<!-- 時間 -->
 			<button class="time back similar_btn">←</button>
@@ -126,12 +143,16 @@
 		<table id="lists">
 			<tr>
 				<td valign="top" id="detail">
-					<img id="album_art"><br>
+					<div id="switch">
+						<img id="switch_img" class="album_art"> <!-- アルバムアートと顔を行き来する -->
+						<img id="mouse" src='./image/mouse_close.png' alt="">
+					</div>
+					<br>
 					<span id="description">Title: <br>Artist: <br>Album: <br>Year: <br>Comment: <br>Track: <br>Genre: <br></span>
-					<span id="lyrics">Lyrics: <br></span>
+					<div id="lyrics_div"><span id="lyrics">Lyrics: <br></span></div>
 				</td>
 				<td valign="top">
-					<span>Track: </span><input id="list_num" value="1" type="number" min="1" step="1"><br>
+					<span>Track: </span><input id="list_track" value="1" type="number" min="1" step="1"><br>
 					<ol id="play_list">
 						<li>404</li>
 						<li>500</li>

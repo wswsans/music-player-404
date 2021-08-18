@@ -6,7 +6,7 @@
 *:focus {
 	outline: none;
 }
-button, label, br {
+button, label, br, img {
   -webkit-touch-callout: none; /* iOS Safari */
 	-webkit-user-select: none; /* Safari */
 	 -khtml-user-select: none; /* Konqueror HTML */
@@ -14,6 +14,9 @@ button, label, br {
 		-ms-user-select: none; /* Internet Explorer/Edge */
 			user-select: none; /* Non-prefixed version, currently
 								  supported by Chrome and Opera */
+	-webkit-user-drag:none;
+	-khtml-user-drag:none;
+	user-drag: none;
 }
 input[type="number"]::-webkit-outer-spin-button,
 input[type="number"]::-webkit-inner-spin-button {
@@ -27,66 +30,105 @@ input[type="number"] {
 span {
 	cursor: default;
 }
-input[type="checkbox"], button, label {
-	cursor: pointer;
-}
 input[type="range"] {
 	cursor: ew-resize;
 	margin-left: 10px;
 }
-button#start {
-	cursor: not-allowed;
-}
-/* その他 */
-input[type="checkbox"] {
-	margin-right: 0;
+/* 装飾  */
+body {
+	margin: 0px;
+	padding: 0px;
 }
 input[type="number"] {
 	text-align: center;
 	background-color: #FFF;
 	border: none;
-	border-bottom: 1px solid #FFF;
+	border-bottom: 1px solid #E6E6E6;
 	width: 20px;
 	transform-origin: 0% 50%;
 	transition: 0.2s;
 }
 input[type="number"]:focus {
-	border-bottom: 1px solid #E5E5E5;
+	border-bottom: 1px solid #B3B3B3;
 }
-body {
-	margin: 0px;
-	padding: 0px;
-	padding-left: 10px;
+button {
+	margin: auto 1px;
+	padding: 2px 7px;
+	border: 1px solid #E6E6E6;
+	background-color: #EFEFEF;
+	width: 35px;
+	height: 25px;
+}
+button.btn_on {
+	background-color: #CCCCCC;
+}
+img {
+	height: 300px;
 }
 
-/* プレイリスト  */
-ol#play_list{
-	display: inline-block;
-	list-style-position: none;
+/* 最初(display: none集団) */
+section#player {
+	display: none;
 }
-ol#play_list li {
-	margin: 2px 0px;
-	padding: 5px;
-	cursor: pointer;
-	border: 1px dotted #000;
+table#lists {
+	display: none;
+}
+button#start {
+	cursor: not-allowed;
+	display: none;
+}
+/* 微調整  */
+button#shuffle, button#loop, button#shuffle_btn {
+	padding: 4px 5px 7px;
+}
+input#play_data {
+	margin: 4px 0px;
 }
 /* シークバー  */
 input.seek.range {
-	width: 440px;
-}
-/* トラック  */
-input#list_num {
-	width: 40px;
+	width: 560px;
 }
 /* ファイル詳細 */
-img#album_art{
+div#switch {
 	margin: 10px;
 	border: 1px solid #000;
-	padding: 150px;
+	height: 300px;
+	width: 300px;
+	cursor: pointer;
+}
+/* リップシンク */
+img.face {
+	position: absolute;
+}
+img#mouse {
+	position: absolute;
+	z-index: 1;
 }
 td#detail {
 	width: 330px;
 }
+/* トラック  */
+input#list_track {
+	width: 40px;
+}
+/* プレイリスト  */
+ol#play_list {
+	display: inline-block;
+	list-style-position: none;
+	overflow: auto;
+}
+ol#play_list li {
+	margin-top: 2px;
+	margin-right: 15px;
+	padding: 5px;
+	border: 1px dotted #000;
+	cursor: pointer;
+}
+
+div#lyrics_div {
+	overflow: auto;
+}
+
 /* キーボードショートカット */
 div#shadow {
 	display: none;
@@ -96,7 +138,7 @@ div#shadow {
 	width: 100%;
 	height: 100%;
 }
-div#dialog{
+div#dialog {
 	display: none;
 	/* 中央よせ */
 	position: fixed;
